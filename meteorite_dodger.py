@@ -2,64 +2,64 @@ import pygame
 import random
 import time
 
-# Initialize Pygame library
+#Initialize Pygame library
 pygame.init()
 
-# Screen dimensions and setup
+#Screen dimensions and setup
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Meteorite Dodger")
 
-# Load game images (player, obstacles, background, lives, power-up)
+#Load game images (player, obstacles, background, lives, power-up)
 rover_image = pygame.image.load('assets/game_assets/rover.png')
 meteorite_image = pygame.image.load('assets/game_assets/meteorite.png')
 mars_bg = pygame.image.load('assets/game_assets/mars_surface.png')  # background image
 heart_image = pygame.image.load('assets/game_assets/heart.png')  # heart symbol for lives
 shield_image = pygame.image.load('assets/game_assets/shield.png')  # shield for temporary invincibility
 
-# Scale images to in-game sizes
+#Scale images to in-game sizes
 rover_image = pygame.transform.scale(rover_image, (80, 80))
 meteorite_image = pygame.transform.scale(meteorite_image, (60, 60))
 heart_image = pygame.transform.scale(heart_image, (30, 30))
 shield_image = pygame.transform.scale(shield_image, (40, 40))
 
-# Define commonly used colors
+#Define commonly used colors
 WHITE = (255, 255, 255)
 GRAY = (100, 100, 100)
 DARK_GRAY = (50, 50, 50)
 BLACK = (0, 0, 0)
 
-# Set initial player position and speed
+#Set initial player position and speed
 rover_x = WIDTH // 2
 rover_y = HEIGHT - 100
 rover_speed = 5
 
-# Initialize gameplay state
-meteorites = []  # list to hold active meteorites
-shield_powerups = []  # list to hold active shield power-ups
-lives = 3  # total lives the player starts with
-is_invincible = False  # whether player is currently invincible
-invincible_start_time = 0  # when invincibility was activated
-invincible_duration = 5  # how long invincibility lasts in seconds
+#Initialize gameplay state
+meteorites = []  #list to hold active meteorites
+shield_powerups = []  #list to hold active shield power-ups
+lives = 3  #total lives the player starts with
+is_invincible = False  #whether player is currently invincible
+invincible_start_time = 0  #when invincibility was activated
+invincible_duration = 5  #how long invincibility lasts in seconds
 
-# Set up game clock and font for UI
+#Set up game clock and font for UI
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 50)
 
-# Draw a clickable button with hover effect
+#Draw a clickable button with hover effect
 def draw_button(text, rect, hover):
     pygame.draw.rect(screen, DARK_GRAY if hover else GRAY, rect)
     label = font.render(text, True, WHITE)
     label_rect = label.get_rect(center=rect.center)
     screen.blit(label, label_rect)
 
-# Generate a meteorite with random position and falling speed
+#Generate a meteorite with random position and falling speed
 #-----------------------TASK 1-------------------------------
-# TASK: Complete the line below to randomly assign a falling speed to the meteorite
-# Hint:
-# random.randint(a, b) – Returns a random integer between a and b (inclusive).
-# random.uniform(a, b) – Returns a random float between a and b.
-# random.random() – Returns a random float between 0.0 and 1.0.
+#TASK: Complete the line below to randomly assign a falling speed to the meteorite
+#Hint:
+#random.randint(a, b) – Returns a random integer between a and b (inclusive).
+#random.uniform(a, b) – Returns a random float between a and b.
+#random.random() – Returns a random float between 0.0 and 1.0.
 
 def create_meteor():
     x = random.randint(0, WIDTH - 40)
@@ -207,11 +207,11 @@ def main_game():
         if random.random() < #insert a float:
             #insert line to add a shield to the game
 
-        # Update positions of all falling objects
+        #Update positions of all falling objects
         meteorites[:] = [m for m in meteorites if move_item(m)]
         shield_powerups[:] = [s for s in shield_powerups if move_item(s)]
 
-        # Check collisions with meteorites
+        #Check collisions with meteorites
         rover_rect = pygame.Rect(rover_x, rover_y, 60, 60)
 
         if not is_invincible:
@@ -222,9 +222,9 @@ def main_game():
                     meteorites.remove(m)
                     if lives <= 0:
                         return game_over_screen()
-                    break  # avoid detecting multiple hits at once
+                    break  #avoid detecting multiple hits at once
 
-        # Check if player collected a shield
+        #Check if player collected a shield
         for s in shield_powerups:
             shield_rect = pygame.Rect(s[0], s[1], 40, 40)
             if check_collision(rover_rect, shield_rect):
@@ -235,10 +235,10 @@ def main_game():
 
         draw_game()
 
-# Run the game if player starts it
+#Run the game if player starts it
 if start_screen():
     while main_game():
         pass
 
-# Exit the game
+#Exit the game
 pygame.quit()
