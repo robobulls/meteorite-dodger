@@ -8,8 +8,11 @@ Invincibility shields  appear randomly during the game. When the player absorbs 
 
 Once the game is over, the player has the option to either quit or restart the game.
 
-## Visuals  
-
+## Visuals 
+<img src="assets/screenshots/img5.png" alt="Game Screenshot" width="400"/>
+<img src="assets/screenshots/img2.png" alt="Game Screenshot" width="400"/>
+<img src="assets/screenshots/img.png" alt="Game Screenshot" width="400"/>
+<img src="assets/screenshots/img4.png" alt="Game Screenshot" width="400"/>
 
 ## Requirements  
 - Python 3.13  
