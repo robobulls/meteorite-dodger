@@ -11,11 +11,11 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Meteorite Dodger")
 
 # Load game images (player, obstacles, background, lives, power-up)
-rover_image = pygame.image.load('assests/rover.png')
-meteorite_image = pygame.image.load('assests/meteorite.png')
-mars_bg = pygame.image.load('assests/mars_surface.png')  # background image
-heart_image = pygame.image.load('assests/heart.png')  # heart symbol for lives
-shield_image = pygame.image.load('assests/shield.png')  # shield for temporary invincibility
+rover_image = pygame.image.load('assets/game_assets/rover.png')
+meteorite_image = pygame.image.load('assets/game_assets/meteorite.png')
+mars_bg = pygame.image.load('assets/game_assets/mars_surface.png')  # background image
+heart_image = pygame.image.load('assets/game_assets/heart.png')  # heart symbol for lives
+shield_image = pygame.image.load('assets/game_assets/shield.png')  # shield for temporary invincibility
 
 # Scale images to in-game sizes
 rover_image = pygame.transform.scale(rover_image, (80, 80))
