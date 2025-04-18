@@ -8,18 +8,18 @@ pygame.init()
 #Screen dimensions and setup
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Meteorite Dodger")
+pygame.display.set_caption("Meteor Dodger")
 
 #Load game images (player, obstacles, background, lives, power-up)
 rover_image = pygame.image.load('assets/game_assets/rover.png')
-meteorite_image = pygame.image.load('assets/game_assets/meteorite.png')
-mars_bg = pygame.image.load('assets/game_assets/mars_surface.png')  # background image
-heart_image = pygame.image.load('assets/game_assets/heart.png')  # heart symbol for lives
-shield_image = pygame.image.load('assets/game_assets/shield.png')  # shield for temporary invincibility
+meteor_image = pygame.image.load('assets/game_assets/meteorite.png')
+mars_bg = pygame.image.load('assets/game_assets/mars_surface.png')  #background image
+heart_image = pygame.image.load('assets/game_assets/heart.png')  #heart symbol for lives
+shield_image = pygame.image.load('assets/game_assets/shield.png')  #shield for temporary invincibility
 
 #Scale images to in-game sizes
 rover_image = pygame.transform.scale(rover_image, (80, 80))
-meteorite_image = pygame.transform.scale(meteorite_image, (60, 60))
+meteor_image = pygame.transform.scale(meteor_image, (60, 60))
 heart_image = pygame.transform.scale(heart_image, (30, 30))
 shield_image = pygame.transform.scale(shield_image, (40, 40))
 
@@ -35,7 +35,7 @@ rover_y = HEIGHT - 100
 rover_speed = 5
 
 #Initialize gameplay state
-meteorites = []  #list to hold active meteorites
+meteors = []  #list to hold active meteors
 shield_powerups = []  #list to hold active shield power-ups
 lives = 3  #total lives the player starts with
 is_invincible = False  #whether player is currently invincible
@@ -53,9 +53,9 @@ def draw_button(text, rect, hover):
     label_rect = label.get_rect(center=rect.center)
     screen.blit(label, label_rect)
 
-#Generate a meteorite with random position and falling speed
+#Generate a meteor with random position and falling speed
 #-----------------------TASK 1-------------------------------
-#TASK: Complete the line below to randomly assign a falling speed to the meteorite
+#TASK: Complete the line below to randomly assign a falling speed to the meteor
 #Hint:
 #random.randint(a, b) – Returns a random integer between a and b (inclusive).
 #random.uniform(a, b) – Returns a random float between a and b.
@@ -65,7 +65,7 @@ def create_meteor():
     x = random.randint(0, WIDTH - 40)
     y = -40
     speed = #insert random function
-    meteorites.append([x, y, speed])
+    meteors.append([x, y, speed])
 
 #Generate a shield power-up with set speed
 def create_shield_powerup():
@@ -105,8 +105,8 @@ def draw_game():
 
     screen.blit(rover_image, (rover_x, rover_y))
 
-    for m in meteorites:
-        screen.blit(meteorite_image, (m[0], m[1]))
+    for m in meteors:
+        screen.blit(meteor_image, (m[0], m[1]))
     for s in shield_powerups:
         screen.blit(shield_image, (s[0], s[1]))
 
@@ -168,14 +168,14 @@ def game_over_screen():
 
 #Core gameplay loop
 def main_game():
-    global rover_x, lives, is_invincible, invincible_start_time, meteorites, shield_powerups
+    global rover_x, lives, is_invincible, invincible_start_time, meteors, shield_powerups
 
     #Reset game variables for a new session
     rover_x = WIDTH // 2
     lives = 3
     is_invincible = False
     invincible_start_time = 0
-    meteorites = []
+    meteors = []
     shield_powerups = []
 
     while True:
@@ -197,29 +197,29 @@ def main_game():
             rover_x += rover_speed
 
         #---------------------- TASK 2 -------------------------
-        #TASK: Add code to randomly spawn meteorites and shields
+        #TASK: Add code to randomly spawn meteors and shields
         #HINT1: random.random() gives a float between 0.0 and 1.0
-        #HINT2: A smaller number means a lower probability of the meteorite or shield appearing.
+        #HINT2: A smaller number means a lower probability of the meteor or shield appearing.
 
         if random.random() < #insert a float:
-            #insert line to add a meteorite to the game
+            #insert line to add a meteor to the game
 
         if random.random() < #insert a float:
             #insert line to add a shield to the game
 
         #Update positions of all falling objects
-        meteorites[:] = [m for m in meteorites if move_item(m)]
+        meteors[:] = [m for m in meteors if move_item(m)]
         shield_powerups[:] = [s for s in shield_powerups if move_item(s)]
 
-        #Check collisions with meteorites
+        #Check collisions with meteors
         rover_rect = pygame.Rect(rover_x, rover_y, 60, 60)
 
         if not is_invincible:
-            for m in meteorites:
-                meteorite_rect = pygame.Rect(m[0], m[1], 40, 40)
-                if check_collision(rover_rect, meteorite_rect):
+            for m in meteors:
+                meteor_rect = pygame.Rect(m[0], m[1], 40, 40)
+                if check_collision(rover_rect, meteor_rect):
                     lives -= 1
-                    meteorites.remove(m)
+                    meteors.remove(m)
                     if lives <= 0:
                         return game_over_screen()
                     break  #avoid detecting multiple hits at once
